@@ -1,19 +1,37 @@
 class queryString {
   parse(str, options) {
-    /**
-     *  options = {
-     *   arrayFormat: 'none'| 'bracket' | 'index' |'comma' | 'separator' | 'bracket-separator'
-     *   arrayFormat: '默认'| '方括号' | '数组下标' |'逗号' | '下划线' | '方括号且下划线'
-     * }
-     */
+    options = Object.assign(
+      {
+        sort: true,
+        // decode: true,
+        // arrayFormat: 'none',
+        // arrayFormatSeparator: ',',
+        // parseNumbers: false,
+        // parseBooleans: false
+      },
+      options
+    );
     const q = {};
     str.replace(/([^#?&=]+)=([^&]+)/g, (_, k, v) => {
       if (Object.keys(q).indexOf(k) === -1) {
-        q[k] = v;
+        q[k] = v || null;
       } else {
-        q[k] = [...q[k], v];
+        q[k] = [q[k], v || null].flat();
       }
     });
+    if (options.sort) {
+      let b = {};
+      Object.keys(q)
+        .sort()
+        .forEach((item) => {
+          b = {
+            ...b,
+            [item]: q[item],
+          };
+        });
+      Object.assign(q, b);
+      return b;
+    }
     return q;
   }
   stringify(parse, options) {
