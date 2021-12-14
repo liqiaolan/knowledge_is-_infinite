@@ -1,0 +1,22 @@
+{
+  "name": "flat_realize",
+  "version": "1.0.0",
+  "description": "实现数组拍平",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liqiaolan/knowledge_is_infinite.git"
+  },
+  "author": "lql",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liqiaolan/knowledge_is_infinite/issues"
+  },
+  "homepage": "https://github.com/liqiaolan/knowledge_is_infinite#readme",
+  "devDependencies": {
+    "jest": "^27.4.4"
+  }
+}
