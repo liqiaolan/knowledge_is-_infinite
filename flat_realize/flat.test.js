@@ -58,16 +58,20 @@ const result3 = [
   { name: "弹铁蛋同学" },
 ];
 
-test("ReduceRealizeFlat realize exactly ", () => {
-  expect(ReduceRealizeFlat(arr1)).toEqual(result1);
-  expect(ReduceRealizeFlat(arr1, 1)).toEqual(result1);
-  expect(ReduceRealizeFlat(arr1, 2)).toEqual(result2);
-  expect(ReduceRealizeFlat(arr1, Infinity)).toEqual(result3);
-});
+describe("Realize flat exactly", () => {
+  test("ReduceRealizeFlat realize exactly ", () => {
+    expect(ReduceRealizeFlat(arr1)).toEqual(result1);
+    expect(ReduceRealizeFlat(arr1, 0)).toEqual(arr1);
+    expect(ReduceRealizeFlat(arr1, 1)).toEqual(result1);
+    expect(ReduceRealizeFlat(arr1, 2)).toEqual(result2);
+    expect(ReduceRealizeFlat(arr1, Infinity)).toEqual(result3);
+  });
 
-test("ConcatRealizeFlat realize exactly ", () => {
-  expect(ConcatRealizeFlat(arr1)).toEqual(result1);
-  expect(ConcatRealizeFlat(arr1, 1)).toEqual(result1);
-  expect(ConcatRealizeFlat(arr1, 2)).toEqual(result2);
-  expect(ConcatRealizeFlat(arr1, Infinity)).toEqual(result3);
+  test("ConcatRealizeFlat realize exactly ", () => {
+    expect(ConcatRealizeFlat(arr1)).toEqual(result1);
+    expect(ConcatRealizeFlat(arr1, 0)).toEqual(arr1);
+    expect(ConcatRealizeFlat(arr1, 1)).toEqual(result1);
+    expect(ConcatRealizeFlat(arr1, 2)).toEqual(result2);
+    expect(ConcatRealizeFlat(arr1, Infinity)).toEqual(result3);
+  });
 });

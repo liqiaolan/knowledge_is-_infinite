@@ -1,21 +1,21 @@
 // reduce + 递归
-const ReduceRealizeFlat = (arr, num = 1) => {
-  return num > 0
+const ReduceRealizeFlat = (arr, depth = 1) => {
+  return depth > 0
     ? arr.reduce(
         (pre, cur) =>
-          pre.concat(Array.isArray(cur) ? ReduceRealizeFlat(cur, --num) : cur),
+          pre.concat(Array.isArray(cur) ? ReduceRealizeFlat(cur, --depth) : cur),
         []
       )
     : arr;
 };
 
 // concat + 递归
-const ConcatRealizeFlat = (arr, num = 1) => {
-  if (num > 0) {
+const ConcatRealizeFlat = (arr, depth = 1) => {
+  if (depth > 0) {
     let tempArr = [];
     arr.forEach((element) => {
-      if (Array.isArray(element)) {
-        tempArr = tempArr.concat(ConcatRealizeFlat(element, --num));
+      if (Array.isArray(element) && depth > 0) {
+        tempArr = tempArr.concat(ConcatRealizeFlat(element, --depth));
       } else {
         tempArr.push(element);
       }
@@ -24,6 +24,7 @@ const ConcatRealizeFlat = (arr, num = 1) => {
   } else {
     return arr;
   }
+
 };
 
 module.exports = { ReduceRealizeFlat, ConcatRealizeFlat };
