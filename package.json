@@ -18,5 +18,8 @@
   "homepage": "https://github.com/liqiaolan/knowledge_is_infinite#readme",
   "devDependencies": {
     "jest": "^27.4.4"
+  },
+  "dependencies": {
+    "@types/jest": "^27.0.3"
   }
 }

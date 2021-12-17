@@ -73,6 +73,12 @@ describe("Realize deepclone exactly", () => {
         return arg1 + arg2;
       },
     };
+    Object.defineProperty(oldArg, "__proto__", {
+      value: 20,
+      configurable: true,
+      enumerable: true,
+      writable: true,
+    });
     let newArg = DeepClone(oldArg);
     newArg.id = 2;
     expect(oldArg.id).toBe(1);
@@ -85,5 +91,17 @@ describe("Realize deepclone exactly", () => {
     };
     expect(oldArg.add(1, 2)).toBe(3);
     expect(newArg.add(1, 2)).toBe(2);
+    newArg["__proto__"] = 21;
+    expect(newArg["__proto__"]).toBe(21);
+    expect(oldArg["__proto__"]).toBe(20);
+  });
+
+  // Set类型复制
+  test("Set deepclone realize exactly ", () => {
+    let oldArg = new Set([1, 2, 4, 5, 6]);
+    let newArg = DeepClone(oldArg);
+    newArg.add("hahaguo");
+    expect(oldArg.size).toBe(5);
+    expect(newArg.size).toBe(6);
   });
 });
