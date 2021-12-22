@@ -7,7 +7,7 @@ const type = (arg, str) =>
   Object.prototype.toString.call(arg) === `[object ${str}]`;
 
 const classNames = (...arg) => {
-  let classArr = [],
+  let classStr = "",
     len = arg.length;
 
   for (let i = 0; i < len; i++) {
@@ -19,7 +19,7 @@ const classNames = (...arg) => {
       (typeof element === "string" || typeof element === "number") &&
       element
     ) {
-      classArr.push(element);
+      classStr += `${element} `;
     } else {
       switch (true) {
         case type(element, "Object"):
@@ -32,13 +32,13 @@ const classNames = (...arg) => {
           ) {
             for (let j in element) {
               if (element[j] && j !== "addPrefixCls") {
-                classArr.push(element.addPrefixCls() + j);
+                classStr += `${element.addPrefixCls() + j} `;
               }
             }
           } else {
             for (let j in element) {
               if (element[j]) {
-                classArr.push(j);
+                classStr += `${j} `;
               }
             }
           }
@@ -48,17 +48,14 @@ const classNames = (...arg) => {
             /**
              * 判断是不是为空字符串的原因
              * classNames(['a', 0, null, undefined, false, true, 'b']
-             * 直接split会出现[''],想用正则没写出来【.split(/^\s(' ')\s$/g))
              */
-            classArr = classArr.concat(
-              classNames(el) !== "" ? classNames(el).split(" ") : []
-            );
+            classStr += classNames(el) ? `${classNames(el)} ` : classNames(el);
           });
           break;
       }
     }
   }
-  return classArr.join(" ");
+  return classStr.trim();
 };
 
 module.exports = classNames;

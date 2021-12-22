@@ -49,7 +49,7 @@ test("Realize classnames exactly", () => {
 
   /**
    * 验证函数 本人觉得没有使用场景所以暂时不写了不测了
-   *  */ 
+   *  */
   // expect(classNames({
   //   toString: function () { return 'classFromMethod'; }
   // })).toBe('classFromMethod');
@@ -60,15 +60,21 @@ test("Realize classnames exactly", () => {
   // expect(classNames(new Class2())).toBe('classFromMethod');
 
   /**
-  * 测试马老板要的antd类名功能
-  */
-  let prefixCls = 'ant-btn'
-   expect(classNames(prefixCls,{
-    'loading':true,
-    'primary':1,
-    'error':undefined,
-    addPrefixCls:() => {
-      return prefixCls + '-'
-    }
-   },'a')).toBe('ant-btn ant-btn-loading ant-btn-primary a');
+   * 测试马老板要的antd类名功能
+   */
+  let prefixCls = "ant-btn";
+  expect(
+    classNames(
+      prefixCls,
+      {
+        loading: true,
+        primary: 1,
+        error: undefined,
+        addPrefixCls: () => {
+          return prefixCls + "-";
+        },
+      },
+      "a"
+    )
+  ).toBe("ant-btn ant-btn-loading ant-btn-primary a");
 });
