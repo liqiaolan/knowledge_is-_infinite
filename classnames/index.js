@@ -58,8 +58,6 @@ const classNames = (...arg) => {
       }
     }
   }
-  console.log(classArr, "classArrclassArr");
-  console.log(classArr.join(" "), "classStr");
   return classArr.join(" ");
 };
 
