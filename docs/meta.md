@@ -1,6 +1,8 @@
 # meta标签应用
 
 #### 1、如果设置了 name 属性，meta元素提供的是文档级别的元数据，应用于整个页面
+
+#### 2、如果设置了 http-equiv 属性，meta元素则是编译指令，提供的信息和类似命名http头部相同
 - content-security-policy 允许定义当前页的内容策略，内容策略主要指定允许的服务器源和脚本断点，这有助于防止夸站点脚本攻击
 ```
 1. content="upgrade-insecure-requests" 自动将http的不安全请求升级为https 
@@ -12,9 +14,6 @@
 这个属性指定:
 如果 content 只包含一个正整数，则为重新载入页面的时间间隔(秒)；
 如果 content 包含一个正整数，并且后面跟着字符串 ';url=' 和一个合法的 URL，则是重定向到指定链接的时间间隔(秒)
-
-
-#### 2、如果设置了 http-equiv 属性，meta元素则是编译指令，提供的信息和类似命名http头部相同
 #### 3、如果设置了 charset 属性，meta元素是一个字符集声明，告诉文档使用哪种字符编码
 - <meta charset="UTF-8"> 声明编码
 #### 4、如果设置了 itemprop 属性，meta元素提供用户定义的元数据

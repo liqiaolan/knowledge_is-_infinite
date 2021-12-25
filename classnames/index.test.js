@@ -11,6 +11,7 @@ test("Realize classnames exactly", () => {
       f: 1,
     })
   ).toBe("a f");
+  expect(classNames("a", '0', null, undefined, true, 1, "b")).toBe("a 0 1 b");
   expect(classNames("a", 0, null, undefined, true, 1, "b")).toBe("a 1 b");
   expect(classNames({ a: true }, "b", 0)).toBe("a b");
   expect(classNames("", "b", {}, "")).toBe("b");
