@@ -4,6 +4,14 @@
  * argument 和 普通数组的区别：
  * */
 
+type Param =
+  | string
+  | number
+  | boolean
+  | undefined
+  | null
+  | Record<string, unknown>;
+
 const getType = (arg) => {
   /**
    * match方法检索返回一个字符串匹配正则表达式的结果，返回的是数组
@@ -21,7 +29,9 @@ const getType = (arg) => {
   return types;
 };
 
-const classNames = (...arg) => {
+const classNames: (...arg: Array<Param | Array<Param>>) => string = (
+  ...arg
+) => {
   /**
    * arg 和 argument 是不一样的  arg是一个正常数组
    */
@@ -29,7 +39,7 @@ const classNames = (...arg) => {
     len = arg.length;
 
   for (let i = 0; i < len; i++) {
-    let element = arg[i];
+    let element: Param | Array<Param> = arg[i];
     /**
      * element 的判断是将null undefined去掉，==的判断转换
      */
