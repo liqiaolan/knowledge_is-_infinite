@@ -1,16 +1,14 @@
 /**
  * classNames  传参类型为 number string object arr
  * 循环本来使用了  let i = len; i--; 出来的顺序单元测试不通过，需要翻转才可以所以修改为正序列
- * argument 和 普通数组的区别：
+ * argument 和 普通数组的区别：argument 是类数组，有index和length属性，
+ * 但是没有数组push, pop等数组方法
+ * 类数组，可迭代对象，数组三者区别 （https://javascript.info/iterable）
  * */
 
-type Param =
-  | string
-  | number
-  | boolean
-  | undefined
-  | null
-  | Record<string, unknown>;
+/**
+ * @param {import('./index.d').Param}
+ */
 
 const getType = (arg) => {
   /**
@@ -29,9 +27,7 @@ const getType = (arg) => {
   return types;
 };
 
-const classNames: (...arg: Array<Param | Array<Param>>) => string = (
-  ...arg
-) => {
+const classNames = (...arg) => {
   /**
    * arg 和 argument 是不一样的  arg是一个正常数组
    */
@@ -39,7 +35,7 @@ const classNames: (...arg: Array<Param | Array<Param>>) => string = (
     len = arg.length;
 
   for (let i = 0; i < len; i++) {
-    let element: Param | Array<Param> = arg[i];
+    let element = arg[i];
     /**
      * element 的判断是将null undefined去掉，==的判断转换
      */
