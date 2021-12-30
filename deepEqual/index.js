@@ -1,10 +1,9 @@
-import { isElementAccessExpression } from "typescript";
-
 /**
  *  @typedef {import('./index.d').DeepEqual}
  *  爬坑之路：
  *  1、本来使用的Object.prototype.toString.call来判断基础数据类型，
  *     使用 ===  判断是否相等，但是 void 0 和 undefined不相等验证不过
+ *  链接  https://github.com/inspect-js/is-equal
  */
 const has = Object.prototype.hasOwnProperty;
 const getType = (el) => Object.prototype.toString.call(el);
