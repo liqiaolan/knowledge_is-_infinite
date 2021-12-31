@@ -17,22 +17,24 @@ const DeepEqual = (value, other) => {
     if (judgeNaN(value) && judgeNaN(other)) {
       return true;
     }
-    // 基本数据类型判断
+    /**
+     * typeof null 为 object  null === null
+     */
     if (typeof value !== "object" || value === null) {
-      if (value === other) {
-        return true;
-      } else {
-        return false;
-      }
+      return value === other;
     }
     // 对象处理
     if (getType(value) === "[object Object]") {
-      let len = 0;
-      for (let i in value) {
-        if (has.call(value, i) && ++len && !has.call(other, i)) return false;
-        if (!DeepEqual(value[i], other[i])) return false;
+      let len1 = Object.keys(value).length;
+      let len2 = Object.keys(other).length;
+      if (len1 === len2) {
+        for (const key of Object.keys(value)) {
+          if (has.call(value, key) && !has.call(other, key))
+            return false;
+          if (!DeepEqual(value[key], other[key])) return false;
+        }
+        return true;
       }
-      return Object.keys(other).length === len;
     }
     // 数组处理
     if (getType(value) === "[object Array]") {
@@ -42,8 +44,6 @@ const DeepEqual = (value, other) => {
           if (!DeepEqual(value[j], other[j])) return false;
         }
         return true;
-      } else {
-        return false;
       }
     }
     // 时间类型处理
@@ -65,12 +65,11 @@ const DeepEqual = (value, other) => {
           }
         }
         return true;
-      } else {
-        return false;
       }
     }
-  } else {
+    console.log("来着");
     return false;
   }
+  return false;
 };
 export default DeepEqual;

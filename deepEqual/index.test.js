@@ -1,141 +1,152 @@
 import DeepEqual from "./index";
 
+function same(a, b) {
+  expect(DeepEqual(a, b)).toBe(true);
+}
+
+function different(a, b) {
+  expect(DeepEqual(a, b)).toBe(false);
+}
+
 describe("Realize deepEqual exactly", () => {
   test("scalars", () => {
-    expect(DeepEqual(1, 1)).toBe(true);
-    expect(DeepEqual(1, 2)).toBe(false);
-    expect(DeepEqual(1, [])).toBe(false);
-    expect(DeepEqual(1, "1")).toBe(false);
-    expect(DeepEqual(Infinity, Infinity)).toBe(true);
-    expect(DeepEqual(Infinity, -Infinity)).toBe(false);
-    expect(DeepEqual(NaN, undefined)).toBe(false);
-    expect(DeepEqual(NaN, null)).toBe(false);
-    expect(DeepEqual(NaN, NaN)).toBe(true);
-    expect(DeepEqual(1, -1)).toBe(false);
-    expect(DeepEqual(0, -0)).toBe(true);
+    same(1, 1);
+    different(1, 2);
+    different(1, []);
+    different(1, "1");
+    same(Infinity, Infinity);
+    different(Infinity, -Infinity);
+    different(NaN, undefined);
+    different(NaN, null);
+    same(NaN, NaN);
+    different(1, -1);
+    same(0, -0);
 
-    expect(DeepEqual(null, null)).toBe(true);
-    expect(DeepEqual(void 0, undefined)).toBe(true);
-    expect(DeepEqual(undefined, undefined)).toBe(true);
-    expect(DeepEqual(null, undefined)).toBe(false);
-    expect(DeepEqual("", null)).toBe(false);
-    expect(DeepEqual(0, null)).toBe(false);
+    same(null, null);
+    same(void 0, undefined);
+    same(undefined, undefined);
+    different(null, undefined);
+    different("", null);
+    different(0, null);
 
-    expect(DeepEqual(true, true)).toBe(true);
-    expect(DeepEqual(false, false)).toBe(true);
-    expect(DeepEqual(true, false)).toBe(false);
-    expect(DeepEqual(0, false)).toBe(false);
-    expect(DeepEqual(1, true)).toBe(false);
+    same(true, true);
+    same(false, false);
+    different(true, false);
+    different(0, false);
+    different(1, true);
 
-    expect(DeepEqual("a", "a")).toBe(true);
-    expect(DeepEqual("a", "b")).toBe(false);
+    same("a", "a");
+    different("a", "b");
   });
 
   test("Objects", () => {
-    expect(DeepEqual({}, {})).toBe(true);
-    expect(DeepEqual({ a: 1, b: 2 }, { a: 1, b: 2 })).toBe(true);
-    expect(DeepEqual({ b: 2, a: 1 }, { a: 1, b: 2 })).toBe(true);
+    same({}, {});
+    same({ a: 1, b: 2 }, { a: 1, b: 2 });
+    same({ b: 2, a: 1 }, { a: 1, b: 2 });
 
-    expect(DeepEqual({ a: 1, b: 2, c: [] }, { a: 1, b: 2 })).toBe(false);
-    expect(DeepEqual({ a: 1, b: 2 }, { a: 1, b: 2, c: [] })).toBe(false);
-    expect(DeepEqual({ a: 1, c: 3 }, { a: 1, b: 2 })).toBe(false);
+    different({ a: 1, b: 2, c: [] }, { a: 1, b: 2 });
+    different({ a: 1, b: 2 }, { a: 1, b: 2, c: [] });
+    different({ a: 1, c: 3 }, { a: 1, b: 2 });
 
-    expect(DeepEqual({ a: [{ b: 1 }] }, { a: [{ b: 1 }] })).toBe(true);
-    expect(DeepEqual({ a: [{ b: 2 }] }, { a: [{ b: 1 }] })).toBe(false);
-    expect(DeepEqual({ a: [{ c: 1 }] }, { a: [{ b: 1 }] })).toBe(false);
+    same({ a: [{ b: 1 }] }, { a: [{ b: 1 }] });
+    different({ a: [{ b: 2 }] }, { a: [{ b: 1 }] });
+    different({ a: [{ c: 1 }] }, { a: [{ b: 1 }] });
 
-    expect(DeepEqual([], {})).toBe(false);
-    expect(DeepEqual({}, [])).toBe(false);
-    expect(DeepEqual({}, null)).toBe(false);
-    expect(DeepEqual({}, undefined)).toBe(false);
+    different([], {});
+    different({}, []);
+    different({}, null);
+    different({}, undefined);
 
-    expect(DeepEqual({ a: void 0 }, {})).toBe(false);
-    expect(DeepEqual({}, { a: undefined })).toBe(false);
-    expect(DeepEqual({ a: undefined }, { b: undefined })).toBe(false);
+    different({ a: void 0 }, {});
+    different({}, { a: undefined });
+    different({ a: undefined }, { b: undefined });
   });
 
   test("dictionary", () => {
     const foo = Object.create(null);
     const bar = Object.create(null);
-    expect(DeepEqual(foo, bar)).toBe(true);
+    same(foo, bar);
+
     foo.hello = "world";
-    expect(DeepEqual(foo, bar)).toBe(false);
+    different(foo, bar);
   });
 
   test("Arrays", () => {
-    expect(DeepEqual([], [])).toBe(true);
-    expect(DeepEqual([1, 2, 3], [1, 2, 3])).toBe(true);
-    expect(DeepEqual([1, 2, 4], [1, 2, 3])).toBe(false);
-    expect(DeepEqual([1, 2], [1, 2, 3])).toBe(false);
-    expect(DeepEqual([{ a: 1 }, { b: 2 }], [{ a: 1 }, { b: 2 }])).toBe(true);
-    expect(DeepEqual([{ a: 2 }, { b: 2 }], [{ a: 1 }, { b: 2 }])).toBe(false);
-    expect(DeepEqual({ 0: 0, 1: 1, length: 2 }, [0, 1])).toBe(false);
+    same([], []);
+    same([1, 2, 3], [1, 2, 3]);
+    different([1, 2, 4], [1, 2, 3]);
+    different([1, 2], [1, 2, 3]);
+
+    same([{ a: 1 }, { b: 2 }], [{ a: 1 }, { b: 2 }]);
+    different([{ a: 2 }, { b: 2 }], [{ a: 1 }, { b: 2 }]);
+
+    different({ 0: 0, 1: 1, length: 2 }, [0, 1]);
   });
 
   test("Dates", () => {
-    expect(
-      DeepEqual(
-        new Date("2015-05-01T22:16:18.234Z"),
-        new Date("2015-05-01T22:16:18.234Z")
-      )
-    ).toBe(true);
-    expect(
-      DeepEqual(
-        new Date("2015-05-01T22:16:18.234Z"),
-        new Date("2017-01-01T00:00:00.000Z")
-      )
-    ).toBe(false);
-    expect(
-      DeepEqual(
-        new Date("2015-05-01T22:16:18.234Z"),
-        "2015-05-01T22:16:18.234Z"
-      )
-    ).toBe(false);
-    expect(DeepEqual(new Date("2015-05-01T22:16:18.234Z"), 1430518578234)).toBe(
-      false
+    same(
+      new Date("2015-05-01T22:16:18.234Z"),
+      new Date("2015-05-01T22:16:18.234Z")
     );
-    expect(DeepEqual(new Date("2015-05-01T22:16:18.234Z"), {})).toBe(false);
+
+    different(
+      new Date("2015-05-01T22:16:18.234Z"),
+      new Date("2017-01-01T00:00:00.000Z")
+    );
+
+    different(new Date("2015-05-01T22:16:18.234Z"), "2015-05-01T22:16:18.234Z");
+
+    different(new Date("2015-05-01T22:16:18.234Z"), 1430518578234);
+
+    different(new Date("2015-05-01T22:16:18.234Z"), {});
   });
 
   test("RegExps", () => {
-    expect(DeepEqual(/foo/, /foo/)).toBe(true);
-    expect(DeepEqual(/foo/i, /foo/i)).toBe(true);
-    expect(DeepEqual(/foo/, /bar/)).toBe(false);
-    expect(DeepEqual(/foo/, /foo/i)).toBe(false);
-    expect(DeepEqual(/foo/, "foo")).toBe(false);
-    expect(DeepEqual(/foo/, {})).toBe(false);
+    same(/foo/, /foo/);
+    same(/foo/i, /foo/i);
+
+    different(/foo/, /bar/);
+    different(/foo/, /foo/i);
+
+    different(/foo/, "foo");
+    different(/foo/, {});
   });
 
   test("Functions", () => {
     let foo = () => {};
     let bar = () => {};
-    expect(DeepEqual(foo, foo)).toBe(true);
-    expect(DeepEqual(foo, bar)).toBe(false);
-    expect(DeepEqual(foo, () => {})).toBe(false);
+
+    same(foo, foo);
+    different(foo, bar);
+    different(foo, () => {});
   });
 
   test("class", () => {
     class Foobar {}
-    expect(DeepEqual(new Foobar(), new Foobar())).toBe(true);
+    same(new Foobar(), new Foobar());
   });
 
   test("prototype", () => {
     function Test() {}
     Test.prototype.val = 42;
-    expect(DeepEqual(new Test(), new Test())).toBe(true);
+
+    same(new Test(), new Test());
   });
 
-  test("Sets flat", () => {
+  test("flat", () => {
     const hello = new Set();
     const world = new Set();
-    expect(DeepEqual(hello, world)).toBe(true);
+
+    same(hello, world);
+
     world.add("hello");
-    expect(DeepEqual(hello, world)).toBe(false);
+    different(hello, world);
+
     hello.add("foo");
-    expect(DeepEqual(hello, world)).toBe(false);
+    different(hello, world);
+
     world.add("foo");
     hello.add("hello");
-    expect(DeepEqual(hello, world)).toBe(true);
+    same(hello, world);
   });
-
 });
