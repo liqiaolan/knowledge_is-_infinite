@@ -67,7 +67,6 @@ const DeepEqual = (value, other) => {
         return true;
       }
     }
-    console.log("来着");
     return false;
   }
   return false;

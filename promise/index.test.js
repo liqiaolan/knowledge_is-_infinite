@@ -8,6 +8,7 @@ describe("Realize MyPromise exactly", () => {
     }).then((value) => {
       expect(value).toBe(1);
     });
+    
     new MyPromise((resolve, reject) => {
       reject(2);
     })
@@ -17,6 +18,24 @@ describe("Realize MyPromise exactly", () => {
       .catch((error) => {
         expect(error).toBe(2);
       });
+
+    const promise1 = MyPromise.resolve(123);
+    promise1.then((value) => {
+      console.log(value);
+      expect(value).toBe(123);
+    });
+
+    const promise2 = new MyPromise((resolve, reject) => {
+      reject('error');
+    });
+    promise2.then((value,reject) => {
+      console.log(value);
+      console.log(reject);
+      // expected output: "Success!"
+    }).catch(error => {
+      console.log(error,'errorerrorerrorerror')
+      expect(error).toEqual('error');
+    });
   });
 
   test("all", () => {

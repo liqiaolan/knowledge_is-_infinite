@@ -22,6 +22,7 @@ class MyPromise {
     this.onFulfilledCallbacks = [];
     this.onRejectedCallbacks = [];
 
+    // 实例上的resolve方法
     const resolve = (value) => {
       if (this.status === PENDING) {
         this.status = FULFILLED;
@@ -47,6 +48,19 @@ class MyPromise {
       reject(err);
     }
   }
+
+  /**
+   * then中的参数解释
+   * onFulfilled：
+   *  当primise变成接受状态（fulfilled）时调用的函数，该函数有一个参数
+   *  即接受的最终结果（the fulfillment  value），如果该参数不是函数
+   *  则会在内部被替换为（x) => x,即原样返回promise最终结果的函数
+   * onReject：
+   *  当promise变成拒绝状态（rejected)时调用的函数，该函数有一个参数
+   *  即拒绝的原因（reason）如果该参数不是函数，则会在内部被替换为一个
+   *  "thrower"函数（it throws an error it received as argument）
+   */
+  
   then(onFulfilled, onReject) {
     // 实现值穿透 当then中传入的不是函数，则这个promise返回上一个promise的值
     onFulfilled =
@@ -55,9 +69,8 @@ class MyPromise {
       typeof onReject === "function"
         ? onReject
         : (reason) => {
-            throw new Error(reason);
+            return reason;
           };
-
     // 保存前一个promise的this
     const self = this;
     return new MyPromise((resolve, reject) => {
@@ -101,6 +114,7 @@ class MyPromise {
   catch(onRejected) {
     return this.then(null, onRejected);
   }
+  // 原型的resolve方法
   static resolve(value) {
     // 如果是promise实例，直接返回
     if (value instanceof MyPromise) {
@@ -145,9 +159,9 @@ class MyPromise {
     return new MyPromise((resolve, reject) => {
       promiseArr.forEach((item) => {
         MyPromise.resolve(item).then(
-            (val) => resolve(val),
-            (err) => reject(err)
-          );
+          (val) => resolve(val),
+          (err) => reject(err)
+        );
       });
     });
   }
