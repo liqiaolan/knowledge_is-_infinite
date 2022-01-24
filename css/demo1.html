@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .list-contain{
+            padding: 10px;
+        }
+        .item-contain{
+            text-align: center;
+            height: 40px;
+            border-radius: 8px;
+        }
+        /* 一个的样式 */
+        .item-contain:first-child:nth-last-child(1) {
+          width: 100%;
+          background-color: #8179c1;
+        }
+        /* 两个的样式 */
+        .item-contain:first-child:nth-last-child(2),
+        .item-contain:nth-child(2):nth-last-child(1) {
+            display: inline-block;
+            width: 49.5%;
+            background-color: #959565;
+        }
+        /* 三个的样式 */
+        .item-contain:first-child:nth-last-child(3),
+        .item-contain:nth-child(2):nth-last-child(2) {
+            display: inline-block;
+            width: 49.5%;
+            background-color: #c76eb7;
+        }
+        .item-contain:nth-child(3):nth-last-child(1) {
+            margin-top: 8px;
+            width: 100%;
+            background-color: #c76eb7;
+        }
+        /* 两个和三个的时候上边一排平均排列 */
+        .item-contain:nth-child(2):nth-last-child(1),
+        .item-contain:nth-child(2):nth-last-child(2){
+            float: right;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- 伪类元素的特殊用法 -->
+    <div class="list-contain">
+        <div class="item-contain"></div>
+        <div class="item-contain"></div>
+        <div class="item-contain"></div>
+    </div>
+    <!-- 案例图片 -->
+    <img src="./imgs/demo1.png" alt="">
+</body>
+</html>

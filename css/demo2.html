@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      .list-contain {
+        background-color: aquamarine;
+        width: 700px;
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 20px 20px 5px;
+      }
+      .item-contain {
+        width: 24%;
+        height: 150px;
+        background-color: skyblue;
+        margin-bottom: 15px;
+      }
+      .item-contain:not(:nth-child(4n)) {
+        margin-right: calc(4% / 3);
+      }
+      img {
+        width: 600px;
+        height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 伪类元素的特殊用法 -->
+    <div class="list-contain">
+      <div class="item-contain"></div>
+      <div class="item-contain"></div>
+      <div class="item-contain"></div>
+      <div class="item-contain"></div>
+      <div class="item-contain"></div>
+      <div class="item-contain"></div>
+      <div class="item-contain"></div>
+      <div class="item-contain"></div>
+      <div class="item-contain"></div>
+      <div class="item-contain"></div>
+    </div>
+    <!-- 案例图片 -->
+    <img src="./imgs/demo2.png" alt="" />
+  </body>
+</html>
