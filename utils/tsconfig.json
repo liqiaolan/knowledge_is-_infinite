@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outDir": "./lib/",
+    "allowJs": true, //允许编译js
+    "target": "es5", //指定编译的ECMAScript目标版本
+    "moduleResolution": "node", //决定如何处理模块
+    "module": "commonjs", //指定生成哪个模块系统代码,默认值根据--target选项不同而不同，当target设置为ES6时，默认module为“ES6”，否则为“commonjs”
+    "declaration": true, // 生成相应的 '.d.ts' 文件
+    "jsx": "preserve" // 指定 jsx 代码的生成: 'preserve', 'react-native', or 'react'
+  },
+  "include": ["**/src/**/*"],
+  "exclude": ["node_modules", "**/__tests__/*"]
+}
