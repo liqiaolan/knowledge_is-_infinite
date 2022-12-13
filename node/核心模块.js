@@ -1,4 +1,6 @@
 const fs = require("node:fs/promises");
+const express  = require('express')
+console.log(express)
 // const fs = require("node:fs/promises");
 const path = require("node:path");
 fs.readFile(path.resolve(__dirname,'./hello.txt')).then(buffer => {
@@ -15,3 +17,4 @@ fs.readFile(path.resolve(__dirname,'./hello.txt')).then(buffer => {
     console.log("await捕获异常");
   }
 })();
+
